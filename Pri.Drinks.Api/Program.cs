@@ -42,7 +42,7 @@ namespace Pri.Drinks.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            app.UseStaticFiles();
 
             app.MapControllers();
 

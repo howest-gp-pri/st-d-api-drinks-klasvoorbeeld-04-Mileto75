@@ -8,8 +8,13 @@ namespace Pri.Drinks.Api.Extensions
     {
         //map from entity to dto
         public static void MapToDto
-            (this DrinksGetByIdDto drinksGetByIdDto, Drink drink)
+            (this DrinksGetByIdDto drinksGetByIdDto, Drink drink, HttpContext httpContext)
         {
+            var imageUrl = "https://placehold.co/600x400";
+            if(drink.Image != null)
+            {
+                imageUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host.Value}/images/{typeof(Drink).Name}/{drink.Image}";
+            }
             drinksGetByIdDto.Id = drink.Id;
             drinksGetByIdDto.Name = drink.Name; 
             drinksGetByIdDto.AlcoholPercentage = drink.AlcoholPercentage;
@@ -25,13 +30,14 @@ namespace Pri.Drinks.Api.Extensions
                     Id = p.Id,
                     Name = p.Name,
                 });
+            drinksGetByIdDto.ImageUrl = imageUrl;
         }
-        public static void MapToDto(this DrinksGetAllDto drinksGetAllDto, IEnumerable<Drink> drinks)
+        public static void MapToDto(this DrinksGetAllDto drinksGetAllDto, IEnumerable<Drink> drinks, HttpContext httpContext)
         {
             var drinksGetByIdDto = new DrinksGetByIdDto();
             drinksGetAllDto.Drinks = drinks.Select(d =>
             {
-                drinksGetByIdDto.MapToDto(d);
+                drinksGetByIdDto.MapToDto(d,httpContext);
                 return drinksGetByIdDto;
             });
             //less performance
@@ -61,7 +67,8 @@ namespace Pri.Drinks.Api.Extensions
                 {
                     Id = drink.Category.Id,
                     Name = drink.Category.Name,
-                }
+                },
+             
             };
         }
     }

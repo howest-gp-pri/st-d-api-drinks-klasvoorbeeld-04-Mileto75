@@ -24,7 +24,7 @@ namespace Pri.Drinks.Api.Controllers
         {
             var result = await _drinkService.GetAllAsync();
             var drinksGetallDto = new DrinksGetAllDto();
-            drinksGetallDto.MapToDto(result.Items);
+            drinksGetallDto.MapToDto(result.Items,HttpContext);
             
             return Ok(drinksGetallDto);
         }
@@ -41,7 +41,7 @@ namespace Pri.Drinks.Api.Controllers
             }
             //fill the dto
             var drinksGetByIdDto = new DrinksGetByIdDto();
-            drinksGetByIdDto.MapToDto(result.Items.First());
+            drinksGetByIdDto.MapToDto(result.Items.First(),HttpContext);
             
             //return to client
             return Ok(drinksGetByIdDto);
