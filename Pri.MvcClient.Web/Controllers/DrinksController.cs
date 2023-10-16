@@ -83,6 +83,7 @@ namespace Pri.MvcClient.Web.Controllers
             return View(drinksAddViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(DrinksAddViewModel drinksAddViewModel)
         {
             //get the categories
@@ -113,7 +114,21 @@ namespace Pri.MvcClient.Web.Controllers
                 });
                 return View(drinksAddViewModel);
             }
-            
+            //do a post request using Post
+            //serialize the viewmodel to json
+            var jsonContent = JsonConvert.SerializeObject(drinksAddViewModel);
+            //create a StringResult object
+            //set text encoding and application
+            StringContent stringContent = 
+                new StringContent(jsonContent,Encoding.UTF8,"application/json");
+            //send using PostAsync():
+            result = await _httpClient.PostAsync(_baseUrl, stringContent);
+            if(result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            //error
+            ModelState.AddModelError("", "Something went wrong, please try again later.");
             return View(drinksAddViewModel);
         }
         [HttpGet]
