@@ -129,12 +129,32 @@ namespace Pri.MvcClient.Web.Controllers
             }
             //error
             ModelState.AddModelError("", "Something went wrong, please try again later.");
+            drinksAddViewModel.Properties = properties.Items.Select(i =>
+                new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                });
+            drinksAddViewModel.Categories = categories.Items.Select(i =>
+            new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
             return View(drinksAddViewModel);
         }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            return RedirectToAction("Error", "Home");
+            //build the url using _baseUrl and Id
+            //call the DeleteAsync() method.
+            Uri deleteUrl = new Uri($"{_baseUrl}/{id}");
+            var result = await _httpClient.DeleteAsync(deleteUrl);
+            if(result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     
     }

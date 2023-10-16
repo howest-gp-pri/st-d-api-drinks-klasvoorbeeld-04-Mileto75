@@ -23,6 +23,7 @@ namespace Pri.Drinks.Api
             builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
             builder.Services.AddTransient<IPropertyRepository, PropertyRepository>();
+            builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<IDrinkService, DrinkService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

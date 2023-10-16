@@ -16,12 +16,14 @@ namespace Pri.Drinks.Core.Services
         private readonly IDrinkRepository _drinkRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IFileService _fileService;
 
-        public DrinkService(IDrinkRepository drinkRepository, ICategoryRepository categoryRepository, IPropertyRepository propertyRepository)
+        public DrinkService(IDrinkRepository drinkRepository, ICategoryRepository categoryRepository, IPropertyRepository propertyRepository, IFileService fileService)
         {
             _drinkRepository = drinkRepository;
             _categoryRepository = categoryRepository;
             _propertyRepository = propertyRepository;
+            _fileService = fileService;
         }
 
         public async Task<ResultModel<Drink>> CreateAsync(string name, int categoryId, int alcoholPercentage, IEnumerable<int> propertyIds)
