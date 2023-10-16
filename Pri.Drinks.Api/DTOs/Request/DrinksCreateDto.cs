@@ -12,5 +12,6 @@ namespace Pri.Drinks.Api.DTOs.Request
         public int AlcoholPercentage { get; set; }
         [Required]
         public IEnumerable<int> PropertyIds { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

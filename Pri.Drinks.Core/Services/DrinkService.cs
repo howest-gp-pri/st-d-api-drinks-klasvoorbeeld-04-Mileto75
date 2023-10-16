@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Pri.Drinks.Core.Entities;
 using Pri.Drinks.Core.Interfaces.Repositories;
 using Pri.Drinks.Core.Interfaces.Services;
@@ -26,7 +27,7 @@ namespace Pri.Drinks.Core.Services
             _fileService = fileService;
         }
 
-        public async Task<ResultModel<Drink>> CreateAsync(string name, int categoryId, int alcoholPercentage, IEnumerable<int> propertyIds)
+        public async Task<ResultModel<Drink>> CreateAsync(string name, int categoryId, int alcoholPercentage, IEnumerable<int> propertyIds,IFormFile formFile)
         {
             //check if categoryId exists
             var categories = _categoryRepository.GetAll();
@@ -67,6 +68,7 @@ namespace Pri.Drinks.Core.Services
                 CategoryId = categoryId,
                 Properties = _propertyRepository.GetAll()
                     .Where(p => propertyIds.Contains(p.Id)).ToList(),
+                Image = await _fileService.StoreFileAsync<Drink>(formFile,"Images")
             };
             if(!await _drinkRepository.CreateAsync(drink))
             {

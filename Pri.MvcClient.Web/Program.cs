@@ -23,6 +23,7 @@ namespace Pri.MvcClient.Web
             builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
             builder.Services.AddTransient<IPropertyRepository, PropertyRepository>();
+            builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<IDrinkService, DrinkService>();
             builder.Services.AddControllersWithViews();
 

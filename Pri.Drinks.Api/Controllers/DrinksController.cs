@@ -73,13 +73,14 @@ namespace Pri.Drinks.Api.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Create(DrinksCreateDto drinksCreateDto)
+        public async Task<IActionResult> Create([FromForm]DrinksCreateDto drinksCreateDto)
         {
             var result = await _drinkService
                 .CreateAsync(drinksCreateDto.Name,
                 drinksCreateDto.CategoryId,
                 drinksCreateDto.AlcoholPercentage,
-                drinksCreateDto.PropertyIds);
+                drinksCreateDto.PropertyIds,
+                drinksCreateDto.Image);
             if(!result.IsSuccess)
             {
                 foreach(var error in result.Errors)

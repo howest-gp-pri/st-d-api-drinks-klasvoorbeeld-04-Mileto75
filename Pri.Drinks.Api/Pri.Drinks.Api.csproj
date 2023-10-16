@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Pri.Drinks.Infrastructure\Pri.Drinks.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
