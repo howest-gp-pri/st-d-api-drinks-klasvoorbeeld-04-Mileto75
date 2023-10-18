@@ -9,10 +9,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.22"></PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Pri.Drinks.Infrastructure\Pri.Drinks.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

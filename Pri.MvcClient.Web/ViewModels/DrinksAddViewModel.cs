@@ -17,5 +17,7 @@ namespace Pri.MvcClient.Web.ViewModels
         [Display(Name = "Properties")]
         public IEnumerable<int> PropertyIds { get; set; }
         public IEnumerable<SelectListItem> Properties { get; set; }
+        [Required]
+        public  IFormFile Image { get; set; }
     }
 }

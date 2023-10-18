@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pri.MvcClient.Web.Models;
 using Pri.MvcClient.Web.ViewModels;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace Pri.MvcClient.Web.Controllers
@@ -114,27 +115,47 @@ namespace Pri.MvcClient.Web.Controllers
                 });
                 return View(drinksAddViewModel);
             }
-            //do a post request using Post
-            //serialize the viewmodel to json
-            var jsonContent = JsonConvert.SerializeObject(drinksAddViewModel);
-            //create a StringResult object
-            //set text encoding and application
-            StringContent stringContent = 
-                new StringContent(jsonContent,Encoding.UTF8,"application/json");
-            //send using PostAsync():
-            result = await _httpClient.PostAsync(_baseUrl, stringContent);
-            if(result.IsSuccessStatusCode)
+            //create the multipartformdata and add the Viewmodel properties
+            MultipartFormDataContent multipartFormDataContent = new()
+            {
+                { new StringContent(drinksAddViewModel.Name,Encoding.UTF8), "Name" },
+                { new StringContent(drinksAddViewModel.CategoryId.ToString(),Encoding.UTF8), "CategoryId" },
+                { new StringContent(drinksAddViewModel.AlcoholPercentage.ToString(), Encoding.UTF8), "AlcoholPercentage" },
+            };
+            //add the int ienumerable as PropertyIds[]
+            foreach (var property in drinksAddViewModel.PropertyIds)
+            {
+                multipartFormDataContent.Add(new StringContent(property.ToString(), Encoding.UTF8), "PropertyIds[]");
+            }
+            //Add file StreamContent to multiForm Content
+            var filecontent = new StreamContent(drinksAddViewModel.Image.OpenReadStream());
+            //set the content type
+            filecontent.Headers.ContentType = new MediaTypeHeaderValue(drinksAddViewModel.Image.ContentType);
+            //set the contentdisposition
+            filecontent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "Image",//this is the property name in the dto
+                FileName = drinksAddViewModel.Image.FileName,
+                FileNameStar = drinksAddViewModel.Image.FileName
+            };
+            //add to multipartformdata
+            multipartFormDataContent.Add(filecontent);
+            //send to api
+            var postResult = await _httpClient.PostAsync(_baseUrl, multipartFormDataContent);
+            var postContent = await postResult.Content.ReadAsStringAsync();
+            if (postResult.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            //error
-            ModelState.AddModelError("", "Something went wrong, please try again later.");
+
+            //api error
+            ModelState.AddModelError("", "Something went wrong, please try again later...");
             drinksAddViewModel.Properties = properties.Items.Select(i =>
-                new SelectListItem
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                });
+            new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
             drinksAddViewModel.Categories = categories.Items.Select(i =>
             new SelectListItem
             {
@@ -156,6 +177,5 @@ namespace Pri.MvcClient.Web.Controllers
             }
             return NotFound();
         }
-    
     }
 }
