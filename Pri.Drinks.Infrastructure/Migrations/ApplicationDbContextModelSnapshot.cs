@@ -97,13 +97,13 @@ namespace Pri.Drinks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8570),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(7994),
                             Name = "Beer"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8572),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8001),
                             Name = "Spirits"
                         });
                 });
@@ -149,7 +149,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 1,
                             AlcoholPercentage = 8,
                             CategoryId = 1,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8575),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8010),
                             Name = "Duvel"
                         },
                         new
@@ -157,7 +157,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 2,
                             AlcoholPercentage = 38,
                             CategoryId = 2,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8576),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8011),
                             Name = "Tequila"
                         },
                         new
@@ -165,7 +165,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 3,
                             AlcoholPercentage = 35,
                             CategoryId = 2,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8577),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8014),
                             Name = "Irish"
                         });
                 });
@@ -198,13 +198,13 @@ namespace Pri.Drinks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8574),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8003),
                             Name = "Sweet"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 16, 12, 22, 10, 897, DateTimeKind.Utc).AddTicks(8574),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8005),
                             Name = "bitter"
                         });
                 });

@@ -9,11 +9,11 @@ using Pri.Drinks.Infrastructure.Data;
 
 #nullable disable
 
-namespace Pri.Drinks.Web.Migrations
+namespace Pri.Drinks.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230918134723_Seeding")]
-    partial class Seeding
+    [Migration("20231018095336_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,16 @@ namespace Pri.Drinks.Web.Migrations
                         {
                             DrinksId = 2,
                             PropertiesId = 2
+                        },
+                        new
+                        {
+                            DrinksId = 3,
+                            PropertiesId = 2
+                        },
+                        new
+                        {
+                            DrinksId = 3,
+                            PropertiesId = 1
                         });
                 });
 
@@ -89,13 +99,13 @@ namespace Pri.Drinks.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6885),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(7994),
                             Name = "Beer"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6888),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8001),
                             Name = "Spirits"
                         });
                 });
@@ -120,6 +130,9 @@ namespace Pri.Drinks.Web.Migrations
                     b.Property<DateTime?>("Deleted")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,7 +151,7 @@ namespace Pri.Drinks.Web.Migrations
                             Id = 1,
                             AlcoholPercentage = 8,
                             CategoryId = 1,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6891),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8010),
                             Name = "Duvel"
                         },
                         new
@@ -146,8 +159,16 @@ namespace Pri.Drinks.Web.Migrations
                             Id = 2,
                             AlcoholPercentage = 38,
                             CategoryId = 2,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6892),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8011),
                             Name = "Tequila"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AlcoholPercentage = 35,
+                            CategoryId = 2,
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8014),
+                            Name = "Irish"
                         });
                 });
 
@@ -179,13 +200,13 @@ namespace Pri.Drinks.Web.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6889),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8003),
                             Name = "Sweet"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 9, 18, 13, 47, 22, 812, DateTimeKind.Utc).AddTicks(6890),
+                            Created = new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8005),
                             Name = "bitter"
                         });
                 });

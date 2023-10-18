@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Pri.Drinks.Web.Migrations
+namespace Pri.Drinks.Infrastructure.Migrations
 {
-    public partial class First : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,8 @@ namespace Pri.Drinks.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,8 +33,8 @@ namespace Pri.Drinks.Web.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,9 +50,10 @@ namespace Pri.Drinks.Web.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     AlcoholPercentage = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,6 +88,52 @@ namespace Pri.Drinks.Web.Migrations
                         principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Created", "Deleted", "Name", "Updated" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(7994), null, "Beer", null },
+                    { 2, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8001), null, "Spirits", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Properties",
+                columns: new[] { "Id", "Created", "Deleted", "Name", "Updated" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8003), null, "Sweet", null },
+                    { 2, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8005), null, "bitter", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Drinks",
+                columns: new[] { "Id", "AlcoholPercentage", "CategoryId", "Created", "Deleted", "Image", "Name", "Updated" },
+                values: new object[] { 1, 8, 1, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8010), null, null, "Duvel", null });
+
+            migrationBuilder.InsertData(
+                table: "Drinks",
+                columns: new[] { "Id", "AlcoholPercentage", "CategoryId", "Created", "Deleted", "Image", "Name", "Updated" },
+                values: new object[] { 2, 38, 2, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8011), null, null, "Tequila", null });
+
+            migrationBuilder.InsertData(
+                table: "Drinks",
+                columns: new[] { "Id", "AlcoholPercentage", "CategoryId", "Created", "Deleted", "Image", "Name", "Updated" },
+                values: new object[] { 3, 35, 2, new DateTime(2023, 10, 18, 9, 53, 36, 516, DateTimeKind.Utc).AddTicks(8014), null, null, "Irish", null });
+
+            migrationBuilder.InsertData(
+                table: "DrinkProperty",
+                columns: new[] { "DrinksId", "PropertiesId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 1 },
+                    { 3, 2 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -24,7 +24,7 @@ namespace Pri.Drinks.Core.Services
             _drinkRepository = drinkRepository;
             _categoryRepository = categoryRepository;
             _propertyRepository = propertyRepository;
-            _fileService = fileService;
+            //_fileService = fileService;
         }
 
         public async Task<ResultModel<Drink>> CreateAsync(string name, int categoryId, int alcoholPercentage, IEnumerable<int> propertyIds,IFormFile formFile)
@@ -68,7 +68,7 @@ namespace Pri.Drinks.Core.Services
                 CategoryId = categoryId,
                 Properties = _propertyRepository.GetAll()
                     .Where(p => propertyIds.Contains(p.Id)).ToList(),
-                Image = await _fileService.StoreFileAsync<Drink>(formFile,"Images")
+               // Image = await _fileService.StoreFileAsync<Drink>(formFile,"Images")
             };
             if(!await _drinkRepository.CreateAsync(drink))
             {
