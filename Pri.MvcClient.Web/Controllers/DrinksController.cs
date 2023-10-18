@@ -80,7 +80,7 @@ namespace Pri.MvcClient.Web.Controllers
                     Value = i.Id.ToString()
                 }),
             };
-            //pass tot the view
+            //pass to the view
             return View(drinksAddViewModel);
         }
         [HttpPost]
