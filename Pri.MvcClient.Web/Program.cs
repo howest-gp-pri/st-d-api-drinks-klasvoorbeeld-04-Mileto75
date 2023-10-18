@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Pri.Drinks.Core.Entities;
 using Pri.Drinks.Core.Interfaces.Repositories;
 using Pri.Drinks.Core.Interfaces.Services;
 using Pri.Drinks.Core.Services;
@@ -19,12 +21,18 @@ namespace Pri.MvcClient.Web
                 options => options
                 .UseSqlServer(builder.Configuration
                 .GetConnectionString("ApplicationDb")));
-            //register the repository service
-            builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
-            builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddTransient<IPropertyRepository, PropertyRepository>();
-            builder.Services.AddScoped<IFileService, FileService>();
-            builder.Services.AddTransient<IDrinkService, DrinkService>();
+            //register and configure Identity
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+                options =>
+                {
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 4;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

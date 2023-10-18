@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pri.Drinks.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Pri.Drinks.Infrastructure.Data;
 namespace Pri.Drinks.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231018120232_identity")]
+    partial class identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,13 +303,13 @@ namespace Pri.Drinks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3805),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1950),
                             Name = "Beer"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3807),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1952),
                             Name = "Spirits"
                         });
                 });
@@ -322,9 +324,6 @@ namespace Pri.Drinks.Infrastructure.Migrations
 
                     b.Property<int>("AlcoholPercentage")
                         .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -346,8 +345,6 @@ namespace Pri.Drinks.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Drinks");
@@ -358,7 +355,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 1,
                             AlcoholPercentage = 8,
                             CategoryId = 1,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3811),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1961),
                             Name = "Duvel"
                         },
                         new
@@ -366,7 +363,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 2,
                             AlcoholPercentage = 38,
                             CategoryId = 2,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3812),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1962),
                             Name = "Tequila"
                         },
                         new
@@ -374,7 +371,7 @@ namespace Pri.Drinks.Infrastructure.Migrations
                             Id = 3,
                             AlcoholPercentage = 35,
                             CategoryId = 2,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3812),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1964),
                             Name = "Irish"
                         });
                 });
@@ -407,13 +404,13 @@ namespace Pri.Drinks.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3808),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1954),
                             Name = "Sweet"
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2023, 10, 18, 12, 4, 53, 119, DateTimeKind.Utc).AddTicks(3809),
+                            Created = new DateTime(2023, 10, 18, 12, 2, 31, 941, DateTimeKind.Utc).AddTicks(1955),
                             Name = "bitter"
                         });
                 });
@@ -486,24 +483,13 @@ namespace Pri.Drinks.Infrastructure.Migrations
 
             modelBuilder.Entity("Pri.Drinks.Core.Entities.Drink", b =>
                 {
-                    b.HasOne("Pri.Drinks.Core.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("Drinks")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("Pri.Drinks.Core.Entities.Category", "Category")
                         .WithMany("Drinks")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Pri.Drinks.Core.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("Drinks");
                 });
 
             modelBuilder.Entity("Pri.Drinks.Core.Entities.Category", b =>
